@@ -1,0 +1,14 @@
+Techniques to augment the dataset.
+1) Rotate the images but this is not very good technique. 
+2) Mirroring the images (flip the image)
+3) Using PCA 
+4) Add distortion in image.
+
+
+
+
+Techniques to be used for experiment
+1) Use One convolution layer and two fully connected layers. 
+2) Use two convulution network and two fully connected layers. 
+3) Use convolution with max pulling layer.
+
