@@ -1,0 +1,9 @@
+
+health_data   -  20,000
+tumour_data   -  10,000
+no_hidden_layer - 1
+no_neurons      - 200
+train_data - .7 %
+val_data   - .15 %
+test_data - .15 %
+

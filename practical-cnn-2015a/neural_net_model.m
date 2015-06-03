@@ -7,6 +7,8 @@
 %   cancerTargets - target data.
 imdb = load('data/neural_net.mat') ;
 imageMean = mean(imdb.images.data(:)) ;
+
+%normalize the data
 imdb.images.data = imdb.images.data - imageMean ;
 
 inputs = (imdb.images.data);
@@ -18,9 +20,9 @@ net = patternnet(hiddenLayerSize);
 % View the Network
 view(net)
 % Set up Division of Data for Training, Validation, Testing
-net.divideParam.trainRatio = 70/100;
-net.divideParam.valRatio = 15/100;
-net.divideParam.testRatio = 15/100;
+net.divideParam.trainRatio = 60/100;
+net.divideParam.valRatio = 20/100;
+net.divideParam.testRatio = 20/100;
 
 
 % Train the Network
@@ -37,10 +39,10 @@ performance = perform(net,targets,outputs)
 
 % Plots
 % Uncomment these lines to enable various plots.
-figure, plotperform(tr)
-figure, plottrainstate(tr)
-figure, plotconfusion(targets,outputs)
-figure, ploterrhist(errors)
+% figure, plotperform(tr)
+% figure, plottrainstate(tr)
+% figure, plotconfusion(targets,outputs)
+% figure, ploterrhist(errors)
 
 testX = x(:,tr.testInd);
 testT = t(:,tr.testInd);

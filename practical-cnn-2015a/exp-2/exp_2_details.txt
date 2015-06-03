@@ -1,0 +1,9 @@
+
+health_data   - ( 71 images , 512 patch/image)  
+tumour_data   - ( 35 images, 512patch /image) 
+no_hidden_layer - 1
+no_neurons      - 200
+train_data - .6 %
+val_data   - .2 %
+test_data - .2 %
+
