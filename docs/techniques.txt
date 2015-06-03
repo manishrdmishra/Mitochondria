@@ -12,3 +12,9 @@ Techniques to be used for experiment
 2) Use two convulution network and two fully connected layers. 
 3) Use convolution with max pulling layer.
 
+Techniques to segment the mitochondria cells and pass this to classifier
+there are follwoing techniques to segment the cells
+
+1) http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4134132/
+2) in simple form we can extract different patch and pass this to classifier
+3)http://www.kev-smith.com/papers/SMITH_TMI12.pdf 

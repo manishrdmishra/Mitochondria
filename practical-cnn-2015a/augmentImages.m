@@ -1,12 +1,16 @@
 function [imdb , count] = augmentImages(fileName,rotationAngle , imdb , count, label, MAX)
-if(count > MAX )
-    return;
-end;
+
 img = imread(fileName);
-img = single(img(:,:,1));
+img = img(:,:,1:3);
+img = rgb2gray(img);
+% figure ;
+% imshow(img);
 img = imresize(img,[200,200]);
 
 for j = 1:rotationAngle:360
+    if(count > MAX )
+     break;
+    end;
     lurot= imrotate(img,j,'nearest','crop');
     luflip = fliplr(img);
     imdb.images.data(:,:,count) = single(lurot);
