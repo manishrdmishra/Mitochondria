@@ -1,4 +1,4 @@
-function mitochondria(varargin)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            function mitochondria(varargin)
 % EXERCISE4   Part 4 of the VGG CNN practical
 %ssetup('useGpu', true) ;
 setup ;
@@ -32,16 +32,18 @@ vl_simplenn_display(net);
 % Part 4.3: train and evaluate the CNN
 % -------------------------------------------------------------------------
 
-trainOpts.batchSize = 5;
-trainOpts.numEpochs = 3 ;
+trainOpts.batchSize = 50;
+trainOpts.numEpochs = 10 ;
 trainOpts.continue = true ;
+trainOpts.errorType = 'binary';
 trainOpts.useGpu = false ;
 trainOpts.learningRate = 0.001 ;
 trainOpts.expDir = 'data/experiment' ;
 trainOpts = vl_argparse(trainOpts, varargin);
 
 % Take the average image out
-imdb = load('data/smallmit.mat') ;
+imdb = load('data/mit_23k.mat') ;
+
 imageMean = mean(imdb.images.data(:)) ;
 imdb.images.data = imdb.images.data - imageMean ;
 
@@ -149,8 +151,9 @@ end
 % % --------------------------------------------------------------------
 function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
-im = imdb.images.data(:,:,batch) ;
-im = 256 * reshape(im, 200, 200, 1, []) ;
+
+im = imdb.images.data(:,:,:,batch) ;
+%im = 256 * reshape(im, 200, 200, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------
