@@ -8,19 +8,21 @@ setup ;
 % -------------------------------------------------------------------------
 
 % Load character dataset
-% imdb = load('data/mit.mat') ;
+imdb = load('data/mit_new_train.mat') ;
+
+
 
 % Visualize some of the data
-% figure(10) ; clf ; colormap gray ;
-% subplot(1,2,1) ;
-% vl_imarraysc(imdb.images.data(:,:,imdb.images.label==1 & imdb.images.set==1)) ;
-% axis image off ;
-% title('training chars for ''a''') ;
-%
-% subplot(1,2,2) ;
-% vl_imarraysc(imdb.images.data(:,:,imdb.images.label==1 & imdb.images.set==2)) ;
-% axis image off ;
-% title('validation chars for ''a''') ;
+figure(10) ; clf ; colormap gray ;
+subplot(1,2,1) ;
+vl_imarraysc(imdb.images.data(:,:,1:1000)) ;
+axis image off ;
+title('sample images for healthy ') ;
+
+subplot(1,2,2) ;
+vl_imarraysc(imdb.images.data(:,:,imdb.images.label==1 & imdb.images.set==2)) ;
+axis image off ;
+title('validation images for healthy') ;
 
 % -------------------------------------------------------------------------
 % Part 4.2: initialize a CNN architecture
@@ -32,17 +34,17 @@ vl_simplenn_display(net);
 % Part 4.3: train and evaluate the CNN
 % -------------------------------------------------------------------------
 
-trainOpts.batchSize = 50;
-trainOpts.numEpochs = 10 ;
+trainOpts.batchSize = 100;
+trainOpts.numEpochs = 20 ;
 trainOpts.continue = true ;
-trainOpts.errorType = 'binary';
+trainOpts.errorType = 'multiclass';
 trainOpts.useGpu = false ;
-trainOpts.learningRate = 0.001 ;
+trainOpts.learningRate = 0.0001 ;
 trainOpts.expDir = 'data/experiment' ;
 trainOpts = vl_argparse(trainOpts, varargin);
 
 % Take the average image out
-imdb = load('data/mit_23k.mat') ;
+imdb = load('data/mit_new_train.mat');
 
 imageMean = mean(imdb.images.data(:)) ;
 imdb.images.data = imdb.images.data - imageMean ;
@@ -82,23 +84,23 @@ axis equal ; title('filters in the first layer') ;
 % -------------------------------------------------------------------------
 %
 %Load the CNN learned before
-net = load('data/experiment/cnnmit.mat') ;
+% net = load('data/experiment/cnnmit.mat') ;
 %im = imread('/home/bug/git/Documents/third_sem/IDP/Mitochondria_Dataset/EM/Tumor/Tumor_377-13/T37713_7_20000.tif');
 %im = imread('/home/bug/git/Documents/third_sem/IDP/Mitochondria_Dataset/EM/Leber/Leber_380-13/L38013_7_20000.tif');
-path = '/home/bug/git/Documents/third_sem/IDP/Mitochondria_Dataset/EM/Leber/Leber_379-13';
-fnames = dir(path);
+% path = '/home/bug/git/Documents/third_sem/IDP/Mitochondria_Dataset/EM/Leber/Leber_379-13';
+% fnames = dir(path);
 
-for K = 3:10
-    f = fullfile(path,fnames(K).name);
-     im = imread(f);
-im = single(im(:,:,1));
-im = imresize(im,[200,200]);
-im = 256 * (im - net.imageMean) ;
-res = vl_simplenn(net, im) ;
-%  scores = squeeze(gather(res(end).x)) ;
-[score,pred] = max(squeeze(res(end).x(1,:,:)));
+% for K = 3:10
+%     f = fullfile(path,fnames(K).name);
+%      im = imread(f);
+% im = single(im(:,:,1));
+% im = imresize(im,[200,200]);
+% im = 256 * (im - net.imageMean) ;
+% res = vl_simplenn(net, im) ;
+% %  scores = squeeze(gather(res(end).x)) ;
+% [score,pred] = max(squeeze(res(end).x(1,:,:)));
 
-end
+% end
 % [bestScore, best] = max(scores) ;
 % bestScore
 % best
@@ -152,8 +154,8 @@ end
 function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
 
-im = imdb.images.data(:,:,:,batch) ;
-%im = 256 * reshape(im, 200, 200, 1, []) ;
+im = imdb.images.data(:,:,batch) ;
+im =  reshape(im, 100, 100, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------
@@ -161,7 +163,7 @@ function [im, labels] = getBatchWithJitter(imdb, batch)
 % % --------------------------------------------------------------------
 im = imdb.images.data(:,:,batch) ;
 labels = imdb.images.label(1,batch) ;
-if isempty(opts.train), opts.train = find(imdb.images.set==1) ; end
+if isempty(opts.train), opts.train = find(imdb.images.set==1) ; 
 
 n = numel(batch) ;
 train = find(imdb.images.set == 1) ;
@@ -190,5 +192,5 @@ vl_imarraysc(im) ;
 
 im = 256 * reshape(im, 32, 32, 1, []) ;
 
-
+end
 
