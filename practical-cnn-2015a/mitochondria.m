@@ -28,18 +28,19 @@ title('validation images for healthy') ;
 % Part 4.2: initialize a CNN architecture
 % -------------------------------------------------------------------------
 
-net = initializeMitochondria() ;
+net =initializeMitochondria ();
+
 vl_simplenn_display(net);
 % -------------------------------------------------------------------------
 % Part 4.3: train and evaluate the CNN
 % -------------------------------------------------------------------------
 
 trainOpts.batchSize = 100;
-trainOpts.numEpochs = 20 ;
+trainOpts.numEpochs = 20;
 trainOpts.continue = true ;
 trainOpts.errorType = 'multiclass';
 trainOpts.useGpu = false ;
-trainOpts.learningRate = 0.0001 ;
+trainOpts.learningRate = 0.001 ;
 trainOpts.expDir = 'data/experiment' ;
 trainOpts = vl_argparse(trainOpts, varargin);
 
@@ -155,7 +156,7 @@ function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
 
 im = imdb.images.data(:,:,batch) ;
-im =  reshape(im, 100, 100, 1, []) ;
+im =  reshape(im, 300, 300, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------
