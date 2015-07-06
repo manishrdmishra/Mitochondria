@@ -1,5 +1,5 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             function mitochondria(varargin)
-% EXERCISE4   Part 4 of the VGG CNN practical
+%
 %ssetup('useGpu', true) ;
 setup ;
 
@@ -7,13 +7,13 @@ setup ;
 % Part 4.1: prepare the data
 % -------------------------------------------------------------------------
 
-% Load character dataset
-imdb = load('data/mit_new_train.mat') ;
+% Load image dataset
+imdb = load('data/mit_lr_train.mat') ;
 
 
 
 % Visualize some of the data
-figure(10) ; clf ; colormap gray ;
+figure(1) ; clf ; colormap gray ;
 subplot(1,2,1) ;
 vl_imarraysc(imdb.images.data(:,:,1:1000)) ;
 axis image off ;
@@ -36,7 +36,7 @@ vl_simplenn_display(net);
 % -------------------------------------------------------------------------
 
 trainOpts.batchSize = 100;
-trainOpts.numEpochs = 20;
+trainOpts.numEpochs = 51;
 trainOpts.continue = true ;
 trainOpts.errorType = 'multiclass';
 trainOpts.useGpu = false ;
@@ -45,7 +45,7 @@ trainOpts.expDir = 'data/experiment' ;
 trainOpts = vl_argparse(trainOpts, varargin);
 
 % Take the average image out
-imdb = load('data/mit_new_train.mat');
+%imdb = load('data/mit_new_train.mat');
 
 imageMean = mean(imdb.images.data(:)) ;
 imdb.images.data = imdb.images.data - imageMean ;
@@ -156,7 +156,7 @@ function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
 
 im = imdb.images.data(:,:,batch) ;
-im =  reshape(im, 300, 300, 1, []) ;
+im =  reshape(im, 200, 200, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------
