@@ -15,12 +15,12 @@ imdb = load('data/mit_lr_train.mat') ;
 % Visualize some of the data
 figure(1) ; clf ; colormap gray ;
 subplot(1,2,1) ;
-vl_imarraysc(imdb.images.data(:,:,1:1000)) ;
+vl_imarraysc(imdb.images.data(:,:,1:500)) ;
 axis image off ;
 title('sample images for healthy ') ;
 
 subplot(1,2,2) ;
-vl_imarraysc(imdb.images.data(:,:,imdb.images.label==1 & imdb.images.set==2)) ;
+vl_imarraysc(imdb.images.data(:,:, imdb.images.set==2)) ;
 axis image off ;
 title('validation images for healthy') ;
 
@@ -36,12 +36,13 @@ vl_simplenn_display(net);
 % -------------------------------------------------------------------------
 
 trainOpts.batchSize = 100;
-trainOpts.numEpochs = 51;
+trainOpts.numEpochs = 5;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 trainOpts.continue = true ;
 trainOpts.errorType = 'multiclass';
 trainOpts.useGpu = false ;
-trainOpts.learningRate = 0.001 ;
-trainOpts.expDir = 'data/experiment' ;
+trainOpts.learningRate = [ 0.1 0.1];
+trainOpts.disableDropout = false ;
+trainOpts.expDir = 'data/CNN_experiments' ;
 trainOpts = vl_argparse(trainOpts, varargin);
 
 % Take the average image out
@@ -66,7 +67,7 @@ end
 % Save the result for later use
 net.layers(end) = [] ;
 net.imageMean = imageMean ;
-save('data/experiment/cnnmit.mat', '-struct', 'net') ;
+save('data/CNN_experiments/cnnmit.mat', '-struct', 'net') ;
 
 % -------------------------------------------------------------------------
 % Part 4.4: visualize the learned filters
@@ -156,7 +157,7 @@ function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
 
 im = imdb.images.data(:,:,batch) ;
-im =  reshape(im, 200, 200, 1, []) ;
+im =  reshape(im, 250, 250, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------
