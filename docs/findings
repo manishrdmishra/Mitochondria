@@ -1,0 +1,21 @@
+Paper - Frustratingly easy domain adaptation
+copy features, useful in case of NLP
+statistical significance method - McNemar's test. 
+
+paper - DLID: Deep Learning for Domain Adaptation
+
+by Interpolating between
+Let the set of data samples for the source domain S be denoted by D_s, and that of the target domain T be denoted by D_t. Starting with all the source data samples D_s,  we generate intermediate sampled datasets, where for each successive dataset we gradually  increase the proportion of samples randomly drawn from D_t, and decrease the proportion of samples drawn from D_s. 
+Each of these data sets can be thought of as a single point on a particualr kind of interpolating path between S and T. 
+For each intermediate dataset D_p , we train a deep non-linear feature extractor F_wp can be thought of as a parametric function that learns how to represent the inputs so that their most salient characteristics can be reconstructed from its outputs. 
+Note that for any input sample
+, with parameters W_p, in an unsupervised manner. Abstractly, the feature extractor F_w
+Pretraining of the convolution networks could be done by a sparse coding algorithm ( Ranzato et al., 2006; Kavukcuoglu et ). 
+
+
+
+Problem - HR model is not working good at patch level , when tested at patch level. Even though when patches are augmented then somehow it was working. Find and analyse the reason for this.
+
+Observation - It seems that the patch size is less and model is not able to capture the full Mitochondria. 
+Right now I am extracting patches from one complete image and then augmenting these patches using rotation and flipping. So let use suppose there are n patches from one image and each patch is augmented in m patches. Then total number of patches would be M = n*m . Now I am giving all these M patches for predictions. And the score of the complete image is the mean of score of these augmented patches. 
+I observed that in m augmented patches for one patch there are many outliers( 2-3 ) scores for HR model + HR data. So if we go with any one patch and if it is outlier then result would be quite bad. 

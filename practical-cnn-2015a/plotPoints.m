@@ -123,6 +123,8 @@ for j = 3:m
     
     y(j- 2 , 1) = mean(std_cancer);
     y(j-2 , 2) = std(std_cancer);
+%      y(j- 2 , 1) = mean(prob);
+%     y(j-2 , 2) = std(prob);
     %    y(j - 2, 2) = std(prob);
     %     y(j- 2 , 3) = mean(hprob(2:end));
     %     y(j - 2, 4) = var(hprob(2:end));
@@ -136,8 +138,8 @@ end
 %legend({'Fao','H4IIE', 'HepG2' , 'HepT1','mhc2', 'mhic1','Train'});
  bar(1:m-2 , y(1:m-2,1) , 'b');
 hold on; errorbar ( 1:m-2 , y(1:m-2,1) , y(1:m-2,2),'b*');
-Labels = {'Fao','H4IIE', 'HepG2', 'HepT1', 'Mhc2', 'Mhic1' ,'T-Healthy','T-Tumor'};
-set(gca, 'XTick', 1:8, 'XTickLabel', Labels);
+Labels = {'Brain','Fao','H4IIE', 'HepG2', 'HepT1','Huh6', 'Mhc2', 'Mhic1' ,'T-Healthy','T-Tumor'};
+set(gca, 'XTick', 1:10, 'XTickLabel', Labels);
 
 
 % figure; bar(1:10,synMean(1:10),'b');
