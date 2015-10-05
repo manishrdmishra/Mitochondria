@@ -1,3 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This function is used to extract 
+%% and augment patches. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [imdb , count] = cnnextractPatch(fileName,dimx , dimy, imdb , count, label, MAX)
 img = imread(fileName);
 % img = img(:,:,1:3);

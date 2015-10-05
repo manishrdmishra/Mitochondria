@@ -13,14 +13,15 @@ numberOfPatchesX = floor ( ( ( ( sizeX - (dimX)) / strideX ) + 1) );
 numberOfPatches = numberOfPatchesY * numberOfPatchesX;
 patches = zeros(dimY,dimX,numberOfPatches);
 centerOfPatches = zeros(numberOfPatches,2);
-count = 1;
+count = 0;
 
 for i = 1:( strideY ):(dimY * numberOfPatchesY )
     for j = 1:( strideX ) :(dimX * numberOfPatchesX )
         patches(:,:,count) = image(i:i+dimY -1  , j:j+dimX - 1);
+        count =  count + 1;
         centerOfPatches(count,1) = j + dimX/2;
         centerOfPatches(count,2) =  i + dimY/2;  
-        count =  count + 1;
+       
         
     end
 end
