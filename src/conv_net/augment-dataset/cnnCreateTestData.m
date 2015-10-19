@@ -1,6 +1,6 @@
 %test data  preparation
 num_data = 4000;
-dimx =  250;
+dimx =  200;
 dimy = 250;
 imdb_test.meta = struct('classes',[],'set',[]);
 imdb_test.images = struct('data',[],'label',[],'set',[]);
@@ -44,7 +44,7 @@ end
 
 
 disp(count);
-save('./data/mit_hr.mat','-struct','imdb_test', '-v7.3');
+save('/home/bug/git/Documents/third_sem/IDP/Mitochondria/data/train_data/mit_hr.mat','-struct','imdb_test', '-v7.3');
 disp('file saved');
 
 

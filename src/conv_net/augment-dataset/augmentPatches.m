@@ -15,23 +15,23 @@ for i = 1:count
     for j= 0:90:270
         
         %% store rotated patch and store
-        tempr = patches(:,:,i);
+        tempr = patches(:,:, i);
         augmentedCount = augmentedCount + 1;
-        augmentedPatches(:,:,augmentedCount) = tempr;
+        augmentedPatches(:,:, augmentedCount) = tempr;
         
         
         %% flip the patch left to right and store
         
         templr =  fliplr(tempr);
         augmentedCount = augmentedCount + 1;
-        augmentedPatches(:,:,augmentedCount) = templr;
+        augmentedPatches(:,:, augmentedCount) = templr;
         
         
         %% flips the patch up to down and store
         
         tempud =  flipud(tempr);
         augmentedCount = augmentedCount + 1;
-        augmentedPatches(:,:,augmentedCount) = tempud;
+        augmentedPatches(:,:, augmentedCount) = tempud;
         
     end
     

@@ -1,15 +1,17 @@
-function [imdb] = insertPatchesInImdb(augmentedPatches,augmentedCount,imdb , label )
+function [imdb] = insertPatchesInImdb(patches,currentCount ,endCount,imdb , label )
 
 num = 5;
-for i = 1:augmentedCount
+counter = 1; 
+for i = currentCount:1:endCount
     
-    imdb.images.data(:,:,i) = augmentedPatches(:,:,i);
-    imdb.images.label(1,i) = label;
-    b = mod(count,num);
+    imdb.images.data(:,:,i) = patches(:,:,counter);
+    counter = counter + 1;
+    imdb.images.label(1, i) = label;
+    b = mod(i,num);
     if( b == 0 )
-        imdb.images.set(i) = 2;
+        imdb.images.set(1, i) = 2;
     else
-        imdb.images.set(i) = 1;
+        imdb.images.set(1, i) = 1;
     end
     
     

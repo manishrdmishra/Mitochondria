@@ -1,14 +1,15 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             function mitochondria(varargin)
 %
 %ssetup('useGpu', true) ;
-setup ;
+run(fullfile(fileparts(mfilename('fullpath')), ...
+  '../../../matconvnet', 'matlab', 'vl_setupnn.m')) ;
 
 % -------------------------------------------------------------------------
 % Part 4.1: prepare the data
 % -------------------------------------------------------------------------
 
 % Load image dataset
-imdb = load('data/mit_lr_train.mat') ;
+imdb = load('/home/bug/git/Documents/third_sem/IDP/Mitochondria/data/train_data/mitochondria_data-5/train_data.mat') ;
 
 
 
@@ -36,13 +37,13 @@ vl_simplenn_display(net);
 % -------------------------------------------------------------------------
 
 trainOpts.batchSize = 100;
-trainOpts.numEpochs = 5;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+trainOpts.numEpochs = 20;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 trainOpts.continue = true ;
 trainOpts.errorType = 'multiclass';
 trainOpts.useGpu = false ;
-trainOpts.learningRate = [ 0.1 0.1];
+trainOpts.learningRate = [0.0001  0.0001*ones(1,10) 0.00001];
 trainOpts.disableDropout = false ;
-trainOpts.expDir = 'data/CNN_experiments' ;
+trainOpts.expDir = '/home/bug/git/Documents/third_sem/IDP/Mitochondria/data/CNN_experiments/';
 trainOpts = vl_argparse(trainOpts, varargin);
 
 % Take the average image out
@@ -67,7 +68,7 @@ end
 % Save the result for later use
 net.layers(end) = [] ;
 net.imageMean = imageMean ;
-save('data/CNN_experiments/cnnmit.mat', '-struct', 'net') ;
+save('/home/bug/git/Documents/third_sem/IDP/Mitochondria/data/CNN_experiments/cnnmit.mat', '-struct', 'net') ;
 
 % -------------------------------------------------------------------------
 % Part 4.4: visualize the learned filters
@@ -157,7 +158,7 @@ function [im, labels] = getBatch(imdb, batch)
 % % --------------------------------------------------------------------
 
 im = imdb.images.data(:,:,batch) ;
-im =  reshape(im, 250, 250, 1, []) ;
+im =  reshape(im, 200, 200, 1, []) ;
 labels = imdb.images.label(1,batch) ;
 
 % % --------------------------------------------------------------------

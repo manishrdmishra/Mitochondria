@@ -7,16 +7,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function [patchesProbabilities, meanProbability,stdProbability] = predictImage(image)
+function [patchesProbabilities, meanProbability,stdProbability] = predictImage(image, net, dimX, dimY, strideX, strideY)
 
- [patches ,centerOfPatches, count ] = extractPatchFromImage(image,dimx ,dimy,stride);
+ [patches ,centerOfPatches, count ] = extractPatchFromImage(image,dimX ,dimY,strideX, strideY);
     
-   patchesProbabilities = zeros(count - 1,1);
+   patchesProbabilities = zeros(1, count);
     
-    for i  = 1:count - 1
-      patchesProbabilities(i) = predictPatch(net,patches(:,:,i));
+    for i  = 1:count
+      patchesProbabilities(1, i) = predictPatch(net,patches(:,:,i));
         
     end
-   meanProbability = mean(cancerProbability);
-   stdProbability = std(cancerProbability);
+   meanProbability = mean(patchesProbabilities);
+   stdProbability = std(patchesProbabilities);
 end
